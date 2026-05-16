@@ -27,3 +27,9 @@ export const addMeal = async (meal: Omit<Meal, 'id' | 'createdAt'>): Promise<Mea
     await AsyncStorage.setItem(MEALS_KEY, JSON.stringify([newMeal, ...meals]))
     return newMeal
 } 
+
+export const deleteMeal = async (id: string): Promise<void> => {
+    const meals = await getMeals()
+    const filtered = meals.filter((meal) => meal.id !== id)
+    await AsyncStorage.setItem(MEALS_KEY, JSON.stringify(filtered))
+}

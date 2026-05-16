@@ -1,32 +1,35 @@
-import { StyleSheet, Text, View} from 'react-native'
-import { globalStyles } from '@/styles/style'
-import MealItem from './MealItem'
+import { StyleSheet, Text, View } from "react-native";
+import { globalStyles } from "@/styles/style";
+import MealItem from "./MealItem";
+import { Meal } from "@/storage/meal";
 
-export default function RecentMeal() {
-    return (
-        <View style={{ marginTop: 30}}>
-            <Text style={globalStyles.sectionTitle}>Recent Meals</Text>
+type RecentMealsProps = {
+  meals: Meal[];
+  onDelete: () => void
+};
+
+export default function RecentMeal({ meals, onDelete }: RecentMealsProps) {
+  return (
+    <View style={{ marginTop: 30 }}>
+      <Text style={globalStyles.sectionTitle}>Recent Meals</Text>
+      {meals.length === 0 ? (
+        <Text style={globalStyles.empty}>No meals logged yet.</Text>
+      ) : (
+        meals
+          .slice(0, 5)
+          .map((meal) => (
             <MealItem
-            name='Chicken & Rice'
-            calories={540}
-            protein={45}
-            carbs={50}
-            fat={12}
+              key={meal.id}
+              id={meal.id}
+              name={meal.name}
+              calories={meal.calories}
+              protein={meal.protein}
+              carbs={meal.calories}
+              fat={meal.fat}
+              onDelete={onDelete}
             />
-            <MealItem
-            name='Protein Shake'
-            calories={200}
-            protein={30}
-            carbs={20}
-            fat={8}
-            />
-            <MealItem
-            name='Salmon Salad'
-            calories={430}
-            protein={35}
-            carbs={10}
-            fat={25}
-            />
-        </View>
-    )
+          ))
+      )}
+    </View>
+  );
 }

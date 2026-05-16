@@ -26,8 +26,8 @@ export default function Index() {
     <ScrollView style={globalStyles.container}>
       <Text style={globalStyles.title}>MacroZone</Text>
       <HomeHeader />
-      <MacroGrid/>
-      <RecentMeal/>
+      <MacroGrid meals={meals}/>
+      <RecentMeal meals={meals} onDelete={loadMeals}/>
     </ScrollView>
   );
 }
